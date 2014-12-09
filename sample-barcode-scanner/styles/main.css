@@ -14,7 +14,7 @@ body
 	margin: 0;
 	padding: 0;
     height:100%;
-    padding: 60px 0px 24px 0px;
+    padding: 0px 0px 24px 0px;
     overflow:hidden;
 }
 
@@ -237,6 +237,33 @@ body
 .button.dw {
     width:220px;   
 } 
+
+ul {
+    float: left;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}
+
+a {
+    float: left;
+    width: 6em;
+    text-decoration: none;
+    color: white;
+    background-color: #EOF3FB;
+    padding: 0.2em 0.6em;
+    border-right: 1px solid white;
+}
+
+a:hover {
+    background-color: #6CB442;
+}
+
+li {
+    display: inline;
+}
+
 
 /* landscape */
 @media screen and (orientation:landscape) {
