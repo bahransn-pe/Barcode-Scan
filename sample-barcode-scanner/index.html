@@ -5,13 +5,80 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 		<meta charset="utf-8">
 		<link href="styles/main.css" rel="stylesheet" type="text/css" />
+         <link rel="stylesheet" href="styles/kendo.common.min.css" />
+    <link rel="stylesheet" href="styles/kendo.default.min.css" />
+    <link rel="stylesheet" href="styles/kendo.dataviz.min.css" />
+    <link rel="stylesheet" href="styles/kendo.dataviz.default.min.css" />
+
+    <script src="scripts/jquery.min.js"></script>
+    <script src="scripts/kendo.all.min.js"></script>
+   
         
+            <style scoped>
+                #tabstrip {
+                    width: 450px;
+                    margin: 30px auto;
+                }
+
+               
+                .k-state-active .k-item{
+                   border-color:Green;
+                    border-width:0;
+                     
+                }
+                
+                .k-state-default .k-state-hover{
+                    background-color:LightBlue;
+                }
+                
+                .k-tabstrip-items .k-state-default {
+                background-color:LightBlue;
+                   
+                    
+                }
+                 .k-tabstrip-items .k-state-active{
+                    background-color:#6CB442;
+                    color:#6CB442;
+                }
+              
+
+                .tagList {
+                    width: 280px;
+                    padding-left:5px;
+                    padding-top:10px;
+                    float: left;
+                }
+
+              .k-tabstrip>.k-content{
+                  border-width:0;
+                  width:300px;
+                  padding:0;
+                  margin-left:0px;
+                  margin-right:15px;
+              }
+                .k-widget{
+                    border-style:none;
+                    border-color:white;
+                }
+                .k-tabstrip-items .k-state-active{
+                    border-color:#c5c5c5;
+                }
+                
+                .tagInfo div, .tagInfo img{
+                    display:inline;
+                    vertical-align:top;
+                    line-height: 30px;
+                }
+               
+            </style>
+
 	</head>
-	<body>
+	<body style="font-size:14px">
         <header>
+            <div style="height:18px;background-color:black"></div>
             <div style="height: 60px; font-weight: bold; font-size: x-large; font-family: Arial; background-color: #354875;mar" id="heading">
                 <div style="float:right; margin-top:5px">
-                    <img src="styles/img/ic_menu_more.png" style="width:50%">
+                    <img src="styles/img/ic_menu_more.png" style="width:50%;float:right">
                 </div>
                 <div style="width: 50%;height:50% ;margin-left:5px; color: #7EB8E1;font-weight:lighter;font-size: med">ONE</div>
                 <div style="height:50% ;width: 50%; margin-left:7px; color: #7EB8E1; font-family: Abadi MT Condensed Light;font-size:medium;">SOURCE</div>
@@ -20,49 +87,92 @@
         
          <div style="height: 80px; background-color: #00A1DE">
                 
-                <input type="text" id="tagSearch" style="position: relative;width: 67%;margin-top: 10px;margin-left: 10px;height: 71%">
+                <input id="result" type="text" style="position: relative;width:70%;margin-top: 10px;margin-left: 10px;height: 71%" placeholder="  Enter Tag">
                 <span >
                     <button id="scanButton" style="float:right;min-width:50px;width:75px;height:71%;margin-top: 10px;margin-right:10px;  background-color: #354875">
-                        <img alt="" src="styles/img/ic_dialog_camera.png" style="height: 40px;width: 50px;background-color:">
+                        <img alt="" src="styles/img/ic_dialog_camera.png" style="height:50px;background-color:">
                     </button>
                 </span>
          </div>
-        
-        <div>
-             <button id="search_button" style="height:50px; width:100px; background-color: #354875"></button> 
-        </div>
-        <!--
-         <header>
-            <div style="height: 60px; font-weight: bold; font-size: x-large; font-family: Arial; background-color: #354875;mar" id="heading">
-                <div style="float: right;margin-right: 20px;margin-top: 10px">
-                    <img src="styles/img/glyphicons-158-show-thumbnails-with-lines.png">
-                </div>
-                <div style="width: 50%;height:50% ;margin-left:5px; color: #7EB8E1;font-weight:lighter;font-size: med">ONE</div>
-                    <div style="height:50% ;width: 50%; margin-left:7px; color: #7EB8E1; font-family: Abadi MT Condensed Light;font-size:medium;">SOURCE</div>
-            </div>
-        </header>
-        <div>
+            <div id="example" style="width:320px">
+                <div id="tabstrip" style="width:300px;margin-right:10px">
+                    <ul style="height:51px">
+                        <li class="k-state-active" style="width:93px;font-size:12px;height:51px">
+                            <p>RECENTS</p>
+                        </li>
+                        <li style="width:93px;font-size:12px;height:51px">
+                               <p>SAVED</p>
+                        </li>
+                        <li style="width:93px;font-size:12px;height:51px">
+                            <p>FOLLOWED</p>
+                        </li>
+                    </ul>
+                    <div>
+                        <div class="tagList">
+                            <div class="tagInfo" id="tagInfo">
+                            
+                            </div>
+                       
+                        </div>
+                        <div>
+                        
+                        
+                        </div>
+                        <div>
+                        
+                        </div>
+                   
+                    </div>
+
+            <script>
+                $(document).ready(function() {
+                    $("#tabstrip").kendoTabStrip({
+                        animation:  {
+                            open: {
+                                effects: "fadeIn"
+                            }
+                        }
+                    });
+                });
+            </script>
+            <script>
+                    var myArray = [
+                    {
+                    "tag": "99960564"
+                    },
+                    {
+                    "tag": "111"
+                    },
+                    {
+                    "tag": "99900099"
+                    },
+                    {
+                    "tag": "99960803"
+                    },
+                    {
+                    "tag": "99960580"
+                    }
+                    ];
+
+myFunction(myArray);
+
+function myFunction(arr) {
+    var out = "";
+    var i;
+    for(i = 0; i < arr.length; i++) {
+        out += '<div style="padding-left:10px;padding-top:5px;padding-right:160px;font-size:14px">'+arr[i].tag+'</div>'+
+               '<img src="styles/img/ic_details.png" style="height:30px;padding-top:5px;float:right">'+
+               '<img src="styles/img/ic_listview_divider.png" style="float:right;height:32px">'+
+               '</div>'+'<hr/>'
+               ;
+    }
+    document.getElementById("tagInfo").innerHTML = out;
+}
+            </script>
+
             
-            <div style="height: 80px; background-color: #00A1DE">
-                <button id="scanButton" style="float: right;min-width:50px;width:75px;height:71%;margin-top: 10px;margin-right:10px;  background-color: #354875">
-                    <img alt="" src="styles/img/glyphicons-12-camera.png" style="height: 40px;width: 50px;background-color:">
-                </button>
-                <input type="text" style="position: relative;width: 67%;margin-top: 10px;margin-left: 10px;height: 71%">
-            </div>
         </div>
-        <div class="content">
-           
-            
-			<div class="result-area ch60">
-                <div class="results">
-                    <div id="result" class="desc"></div>
-                </div>
-                <div class="separator"></div>
-            </div>
-		</div>
-		<footer class="footer">
-			<div>Perkin Elmer One Source</div>
-		</footer>-->
+ </div>
         <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
         <script type="text/javascript" charset="utf-8" src="scripts/main.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
