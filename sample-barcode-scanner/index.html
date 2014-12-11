@@ -20,13 +20,17 @@
         
          <div style="height: 80px; background-color: #00A1DE">
                 
-                <input type="text" style="position: relative;width: 67%;margin-top: 10px;margin-left: 10px;height: 71%">
+                <input type="text" id="tagSearch" style="position: relative;width: 67%;margin-top: 10px;margin-left: 10px;height: 71%">
                 <span >
                     <button id="scanButton" style="float:right;min-width:50px;width:75px;height:71%;margin-top: 10px;margin-right:10px;  background-color: #354875">
                         <img alt="" src="styles/img/ic_dialog_camera.png" style="height: 40px;width: 50px;background-color:">
                     </button>
                 </span>
          </div>
+        
+        <div>
+             <button id="search_button" style="height:50px; width:100px; background-color: #354875"></button> 
+        </div>
         <!--
          <header>
             <div style="height: 60px; font-weight: bold; font-size: x-large; font-family: Arial; background-color: #354875;mar" id="heading">
@@ -61,5 +65,35 @@
 		</footer>-->
         <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
         <script type="text/javascript" charset="utf-8" src="scripts/main.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script type="text/javascript">
+             $('#tagSearch').keyup(function () {
+            if (event.keyCode == 13) {
+                $('#search_button').click();
+            }
+        });
+
+
+        $('#search_button').click(function () {
+            var equipmentDetails = {"passWord":"HAqGaJRmqOrA6b4wrr7uSg==","userName":"anu.deepak@perkinelmer.com","oneSourceTag":"99960805"};
+            
+            alert("Inside click function");
+            alert(equipmentDetails.passWord);
+            $.ajax({
+                crossDomain: "true",
+                        type: "POST",
+                        url: "https://onesource.qa.perkinelmer.com/PivotWebService/PivotWebSvc.svc/GetEquipmentDetails",
+    // The key needs to match your method's input parameter (case-sensitive).
+                        data: equipmentDetails,
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "jsonp",
+                        success: function(data){alert(data);},
+                        failure: function(errMsg) {
+                        alert(errMsg);
+                                                  }
+                    });
+            
+            });
+        </script>
 	</body>
 </html>
